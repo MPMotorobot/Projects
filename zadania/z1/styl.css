@@ -1,0 +1,53 @@
+*{
+    font-family: 'Comic Sans MS', 'sans-serif';
+}
+body{
+    display: grid;
+    grid-template-areas: 
+    "header aside"
+    "main aside"
+    "footer footer";
+}
+header, main {
+    /* width: 70%; */
+    text-align: center;
+}
+header, aside {
+    background-color: paleturquoise;
+    border-radius: 20px;
+}
+header {
+    grid-area: header;
+    height: 7em;
+    padding: 2%;
+}
+aside {
+    width: 500px;
+    grid-area: aside;
+    height: 54em;
+    line-height: 2;
+    margin: 0 0 0 30px;
+}
+main {
+    grid-area: main;
+    height: 43em;
+}
+footer {
+    grid-area: footer;
+    padding-top: 10px;
+}
+section {
+    border: 1px dashed dimgray;
+    margin: 10px 50px;
+    height: 37em;
+    overflow: auto;
+}
+.miniatury {
+    height: 200px;
+    padding: 10px;
+    opacity: 0.8;
+    transition: 1s;
+}
+.miniatury:hover {
+    opacity: 1;
+}

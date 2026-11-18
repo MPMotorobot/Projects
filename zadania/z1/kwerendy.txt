@@ -1,0 +1,4 @@
+kw1 - SELECT idObiekt, plik, nazwa from obiekty WHERE panstwo = 'islandia';
+kw2 - SELECT o.plik, o.nazwaCechy, o.wartoscCechy, o.opis, r.rodzaj from obiekty o join rodzaje z on o.idRodzaj = r.idRodzaj WHERE o.idRodzaj = 46;
+kw3 - SELECT nazwa from obiekty WHERE panstwo = 'islandia' AND idRodzaj = 10;
+kw4 - SELECT r.rodzaj, COUNT(id.Obiekt) AS "Liczba obiektow" from rodzaje r LEFT JOIN obiekty 0 ON r.idRodzaj GROUP BY r.rodzaj;
