@@ -1,0 +1,4 @@
+kw1 - SELECT imie, nazwisko FROM rezerwacje WHERE wyzywienie = 3;
+kw2 - SELECT COUNT(*) from rezerwacje where Wycieczki_id = 2 and wylot = 'Warszawa';
+kw3 - SELECT w.miejsce, r.imie, r.nazwisko from rezerwacje r JOIN wycieczki w ON r.Wycieczki_id = w.id;
+kw4 - SELECT w.miejsce, SUM(r.osob) from wycieczki w JOIN rezerwacje r ON r.Wycieczki_id = w.id GROUP BY w.miejsce;

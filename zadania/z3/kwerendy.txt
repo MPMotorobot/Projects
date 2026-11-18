@@ -1,0 +1,4 @@
+kw1 - SELECT nazwa, styl, cena from meble where czyNowy = 1 AND cena <= 1000 ORDER BY cena DESC;
+kw2 - CREATE VIEW komody AS SELECT idMeble, nazwa, kategoria, cena FROM meble where kategoria = 3;
+kw3 - SELECT ROUND(AVG(cena), 0) AS 'Średnia cena komód', MIN(cena) AS 'Minimalna', MAX(cena) AS 'Maksmalna' FROM komody;
+kw4 - DELETE FROM `klienci` WHERE imie = 'Tomasz' AND nazwisko = 'Nowak';

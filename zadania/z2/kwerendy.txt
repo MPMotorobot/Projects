@@ -1,0 +1,5 @@
+kw1 - SELECT idKontynent, nazwa from kontynenty;
+kw2 - SELECT nazwa, wartoscCechy, plik FROM obiekty WHERE panstwo = 'Polska' AND idRodzaj = 10;
+kw3 - SELECT idObiekt, panstwo, nazwa, wartoscCechy from obiekty where idRodzaj = 10 AND idKontynent = 6;
+kw4 - INSERT INTO osiagniecia (idObiekt, idTurysta) VALUES (34, 2);
+kw5 - SELECT idTurysta, nick from turysci;

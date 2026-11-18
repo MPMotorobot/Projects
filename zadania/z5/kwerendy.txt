@@ -1,0 +1,4 @@
+kw1 - SELECT idMeble, nazwa, plik, styl, cena, opis from meble where kategoria = 1;
+kw2 - INSERT INTO zakupy (idKlienci, idMeble, sztuk) VALUES (1,6,1);
+kw3 - SELECT m.nazwa, m.cena from meble m join zakupy z on m.idMeble=z.idMeble LEFT JOIN klienci k on z.idKlienci=k.idKlienci where k.idKlienci = 1;
+kw4 - SELECT m.nazwa, k.imie, k.nazwisko FROM meble m join zakupy z on m.idMeble=z.idMeble LEFT JOIN klienci k on z.idKlienci=k.idKlienci;

@@ -1,0 +1,62 @@
+*{
+    font-family: 'Century Gothic', sans-serif;
+    box-sizing: border-box;
+}
+body{
+    background-color: beige;
+    font-size: 140%;
+}
+header, footer{
+    text-align: center;
+    padding: 20px;
+}
+section,article{
+    float: left;
+    width: 50%;
+    height: 600px;
+}
+button{
+    background-color: tan;
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 150%;
+    border: none;
+    cursor: pointer;
+}
+img{
+    mix-blend-mode: multiply;
+}
+.obraz{
+    width: 40%;
+    padding: 20px;
+    border: 1px solid tan;
+}
+.miniatury{
+    width: 15%;
+}
+.okno{
+    background-color: rgba(0,0,0,0.7);
+    width: 80%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    display: none;
+}
+.obrazOkno{
+    margin: auto;
+    display: block;
+    mix-blend-mode: normal;
+    opacity: 1;
+}
+.zamknij{
+    position: inherit;
+    top: 15px;
+    right: 35px;
+    color: beige;
+    font-weight: bold;
+    font-size: 40px;
+}
+.zamknij:hover{
+    cursor: pointer;
+}
