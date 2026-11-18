@@ -1,12 +1,10 @@
 
 const projectsContainer = document.querySelector('#projects');
 
-// API на ноутбуке
 const API_URL = "https://gently-firewire-hypothetical-van.trycloudflare.com/projects-api/api/projects";
 
-// Файлы проектов на основном ПК.
-// Apache должен обслуживать их из C:\xampp\htdocs\
-const PROJECTS_BASE_URL = "http://localhost/";
+// Корень сайта GitHub Pages
+const SITE_BASE_URL = new URL('./', document.baseURI);
 
 function element(tag, className, text) {
     const node = document.createElement(tag);
@@ -17,21 +15,22 @@ function element(tag, className, text) {
     return node;
 }
 
-// Преобразование относительного пути в URL основного ПК
+// Преобразование пути из БД в адрес GitHub Pages
 function projectUrl(value) {
     if (typeof value !== 'string' || !value.trim()) {
         return null;
     }
 
     try {
-        const path = value.trim().replaceAll('\\', '/');
-        const url = new URL(path.replace(/^\/+/, ''), PROJECTS_BASE_URL);
+        const path = value.trim().replace(/\\/g, '/').replace(/^\/+/, '');
+        const url = new URL(path, SITE_BASE_URL);
 
         if (!['http:', 'https:'].includes(url.protocol)) {
             return null;
         }
 
-        if (url.origin !== new URL(PROJECTS_BASE_URL).origin) {
+        if (url.origin !== SITE_BASE_URL.origin ||
+            !url.pathname.startsWith(SITE_BASE_URL.pathname)) {
             return null;
         }
 
@@ -52,13 +51,17 @@ function createCard(project) {
     const imageLink = projectUrl(project.image);
     const databaseLink = projectUrl(project.database);
 
-    // Изображение
+    // PHP нельзя запустить на GitHub Pages
+    const requiresPhp = typeof project.link === 'string' &&
+        /\.php(?:$|[?#])/i.test(project.link.trim());
+
+    // Изображение проекта
     const preview = element(
-        projectLink ? 'a' : 'div',
+        projectLink && !requiresPhp ? 'a' : 'div',
         'project-image'
     );
 
-    if (projectLink) {
+    if (projectLink && !requiresPhp) {
         preview.href = projectLink;
     }
 
@@ -84,11 +87,11 @@ function createCard(project) {
         );
     }
 
-    // Информация
+    // Информация о проекте
     const info = element('div', 'project-info');
     const heading = element('h3', '', name);
 
-    if (projectLink) {
+    if (projectLink && !requiresPhp) {
         const title = element('a', 'project-title');
 
         title.href = projectLink;
@@ -97,15 +100,21 @@ function createCard(project) {
         info.append(title);
     } else {
         info.append(heading);
+
         info.append(
-            element('p', 'project-unavailable', 'Strona projektu niedostępna')
+            element(
+                'p',
+                'project-unavailable',
+                requiresPhp
+                    ? 'Projekt wymaga serwera PHP'
+                    : 'Strona projektu niedostępna'
+            )
         );
     }
 
     // Технологии
     const technologies = typeof project.technologies === 'string'
-        ? project.technologies
-            .split(',')
+        ? project.technologies.split(',')
             .map(item => item.trim())
             .filter(Boolean)
         : [];
@@ -122,7 +131,7 @@ function createCard(project) {
         info.append(list);
     }
 
-    // Скачивание SQL
+    // Скачивание базы данных
     const download = element(
         databaseLink ? 'a' : 'span',
         'download',
@@ -207,7 +216,7 @@ async function loadProjects() {
         console.error('Nie udało się załadować projektów:', error);
 
         showMessage(
-            'Nie udało się załadować projektów. Sprawdź połączenie z API.',
+            'Nie udało się załadować projektów.',
             true,
             true
         );
