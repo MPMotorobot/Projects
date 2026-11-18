@@ -1,0 +1,56 @@
+*{
+    font-family: 'Lucida Console', monospace;
+}
+body{
+    background-color: HoneyDew;
+    text-align: center;
+    margin: 0;
+}
+header, footer{
+    padding: 20px;
+}
+main{
+    position: relative;
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-areas: 
+    "left center right";
+}
+#left, #right{
+    background-color: PaleGreen;
+    width: 100%;
+    padding: 80px 0px;
+    border-radius: 40px;
+    box-sizing: border-box;
+}
+#left{
+    grid-area: left;
+    height: 30%;
+}
+#right{
+    grid-area: right;
+    height: 30%;
+    display: none;
+}
+#center{
+    grid-area: center;
+    width: 100%;
+    box-shadow: 0px 0px 10px darkGreen;
+    box-sizing: border-box;
+}
+img{
+    width: 80%;
+    margin: 10px;
+    cursor: pointer;
+}
+table{
+    width: 90%;
+    margin: 10px;
+    border-collapse: collapse;
+}
+td{
+    border: 3px solid SeaGreen;
+}
+td:active{
+    background-color: seagreen;
+}

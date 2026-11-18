@@ -1,0 +1,4 @@
+kw1 - SELECT imie, nazwisko from diagnosta ORDER BY nazwisko DESC;
+kw2 - SELECT DATE(data), COUNT(*) FROM zlecenie GROUP BY DATE(data);
+kw3 - SELECT z.data from zlecenie z JOIN pacjent p ON z.idPacjenta = p.id where p.nazwisko = 'Nowicki';
+kw4 - SELECT p.imie, p.nazwisko, p.pesel, z.data, w.data, w.plik FROM pacjent p JOIN zlecenie z ON p.id = z.idPacjenta LEFT JOIN wynik w ON z.id = w.idZlecenia;
