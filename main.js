@@ -3,7 +3,7 @@ const projectsContainer = document.querySelector('#projects');
 
 const API_URL = "https://gently-firewire-hypothetical-van.trycloudflare.com/projects-api/api/projects";
 
-// Корень сайта GitHub Pages
+// Базовый адрес GitHub Pages
 const SITE_BASE_URL = new URL('./', document.baseURI);
 
 function element(tag, className, text) {
@@ -15,7 +15,7 @@ function element(tag, className, text) {
     return node;
 }
 
-// Преобразование пути из БД в адрес GitHub Pages
+// Преобразование относительного пути в URL GitHub Pages
 function projectUrl(value) {
     if (typeof value !== 'string' || !value.trim()) {
         return null;
@@ -29,8 +29,10 @@ function projectUrl(value) {
             return null;
         }
 
-        if (url.origin !== SITE_BASE_URL.origin ||
-            !url.pathname.startsWith(SITE_BASE_URL.pathname)) {
+        if (
+            url.origin !== SITE_BASE_URL.origin ||
+            !url.pathname.startsWith(SITE_BASE_URL.pathname)
+        ) {
             return null;
         }
 
@@ -51,17 +53,13 @@ function createCard(project) {
     const imageLink = projectUrl(project.image);
     const databaseLink = projectUrl(project.database);
 
-    // PHP нельзя запустить на GitHub Pages
-    const requiresPhp = typeof project.link === 'string' &&
-        /\.php(?:$|[?#])/i.test(project.link.trim());
-
-    // Изображение проекта
+    // Изображение и переход на проект
     const preview = element(
-        projectLink && !requiresPhp ? 'a' : 'div',
+        projectLink ? 'a' : 'div',
         'project-image'
     );
 
-    if (projectLink && !requiresPhp) {
+    if (projectLink) {
         preview.href = projectLink;
     }
 
@@ -87,11 +85,11 @@ function createCard(project) {
         );
     }
 
-    // Информация о проекте
+    // Название и информация
     const info = element('div', 'project-info');
     const heading = element('h3', '', name);
 
-    if (projectLink && !requiresPhp) {
+    if (projectLink) {
         const title = element('a', 'project-title');
 
         title.href = projectLink;
@@ -102,19 +100,14 @@ function createCard(project) {
         info.append(heading);
 
         info.append(
-            element(
-                'p',
-                'project-unavailable',
-                requiresPhp
-                    ? 'Projekt wymaga serwera PHP'
-                    : 'Strona projektu niedostępna'
-            )
+            element('p', 'project-unavailable', 'Strona projektu niedostępna')
         );
     }
 
     // Технологии
     const technologies = typeof project.technologies === 'string'
-        ? project.technologies.split(',')
+        ? project.technologies
+            .split(',')
             .map(item => item.trim())
             .filter(Boolean)
         : [];
@@ -131,7 +124,7 @@ function createCard(project) {
         info.append(list);
     }
 
-    // Скачивание базы данных
+    // Скачивание SQL-файла
     const download = element(
         databaseLink ? 'a' : 'span',
         'download',
